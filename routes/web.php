@@ -19,11 +19,40 @@ Route::get('/', function () {
 });
 
 Route::get('about',function(){
-    return "<h1>About Page</h1>";
+    $about = "This is about page02.";
+    $about2 = "This is about two.";
+    //return view('about.index',['about'=>$about]); // 陣列key值帶入到view可作為變數使用
+    return view('about.index',compact('about','about2')); // compact('about') 等同於 ['about'=>$about]
 })->name('about');
 
 Route::get('contact',function(){
-    return "<h1>Contact Page</h1>";
+    return view('contact');
+});
+
+Route::get('home',function(){
+    $blogs = [
+        [
+            'title' => 'Title one',
+            'body' => 'This is a body text 1',
+            'status'=> 1,
+        ],
+        [
+            'title' => 'Title two',
+            'body' => 'This is a body text 2',
+            'status'=> 1,
+        ],
+        [
+            'title' => 'Title three',
+            'body' => 'This is a body text 3',
+            'status'=> 0,
+        ],
+        [
+            'title' => 'Title four',
+            'body' => 'This is a body text 4',
+            'status'=> 1,
+        ],
+    ];
+    return view('home',compact('blogs'));
 });
 
 // URL參數帶id值
@@ -31,9 +60,9 @@ Route::get('contact/{id}',function($id){
     return $id;
 })->name('edit-contact');
 
-Route::get('home',function(){
-    return "<a href='".route('edit-contact',12)."'>About</a>";
-});
+// Route::get('home',function(){
+//     return "<a href='".route('edit-contact',12)."'>About</a>";
+// });
 
 // Route Grouping Route群組(方便管理、修改)
 
